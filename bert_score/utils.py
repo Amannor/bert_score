@@ -36,8 +36,13 @@ lang2model.update(
     }
 )
 
+def get_num_hidden_layers(model_name: str) -> int:
+    """Fetches the number of hidden layers from a Hugging Face model configuration."""
+    config = AutoConfig.from_pretrained(model_name)
+    return config.num_hidden_layers
 
-model2layers = {
+model2layers = collections.defaultdict(get_num_hidden_layers)
+model2layers.update{
     "bert-base-uncased": 9,  # 0.6925188074454226
     "bert-large-uncased": 18,  # 0.7210358126642836
     "bert-base-cased-finetuned-mrpc": 9,  # 0.6721947475618048
