@@ -199,6 +199,7 @@ def plot_example(
     baseline_path=None,
     use_fast_tokenizer=False,
     fname="",
+    return_raw_data=False
 ):
     """
     BERTScore metric.
@@ -277,6 +278,8 @@ def plot_example(
                 file=sys.stderr,
             )
 
+    if return_raw_data:
+        return h_tokens, r_tokens, sim
     fig, ax = plt.subplots(figsize=(len(r_tokens), len(h_tokens)))
     im = ax.imshow(sim, cmap="Blues", vmin=0, vmax=1)
 

@@ -251,7 +251,7 @@ class BERTScorer:
 
         return out
 
-    def plot_example(self, candidate, reference, fname=""):
+    def plot_example(self, candidate, reference, fname="", return_raw_data=False):
         """
         Args:
             - :param: `candidate` (str): a candidate sentence
@@ -300,6 +300,9 @@ class BERTScorer:
                 1 - self.baseline_vals[2].item()
             )
 
+        if return_raw_data:
+            return h_tokens, r_tokens, sim
+        
         fig, ax = plt.subplots(figsize=(len(r_tokens), len(h_tokens)))
         im = ax.imshow(sim, cmap="Blues", vmin=0, vmax=1)
 
