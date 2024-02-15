@@ -1,3 +1,6 @@
+*I did this fork to make my own branches with small additions:
+ - [default_layers_num](https://github.com/Amannor/bert_score/blob/default_layers_num/README.md) (fetches layers num of a model in case it doesn't find it locally)
+ - 
 # BERTScore
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-red.svg)](#python)
 [![arxiv](https://img.shields.io/badge/arXiv-1904.09675-b31b1b.svg)](https://arxiv.org/abs/1904.09675)
