@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="bert_score_flex_plot_example",
-    version="0.3.14",
+    version="0.3.16",
     author="Fork author: Alon Mannor. Origianl authors: Tianyi Zhang*, Varsha Kishore*, Felix Wu*, Kilian Q. Weinberger, and Yoav Artzi",
     author_email="alon.mannor@gmail.com (fork author),  tzhang@asapp.com (original author)",
     description="An unofficial fork of PyTorch implementation of BERT score",
