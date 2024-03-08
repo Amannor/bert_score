@@ -257,6 +257,15 @@ class BERTScorer:
             - :param: `candidate` (str): a candidate sentence
             - :param: `reference` (str): a reference sentence
             - :param: `fname` (str): path to save the output plot
+            - :param: `return_raw_data` (bool): If true, this function won't plot anything, but instead will return the raw data
+                that's used for the plot. The data is:
+                - h_tokens (List[Tuple[int, str]]): A list of 2-tuples. Each item in the list will be a token from the 'candidate'
+                param (by order). Each token will be a 2-tuple: the token's embedding (int) and the token's str representation
+                - r_tokens (List[Tuple[int, str]]): A list of 2-tuples. Each item in the list will be a token from the 'reference'
+                param (by order). Each token will be a 2-tuple: the token's embedding (int) and the token's str representation
+                - sim torch.Tensor: A 2X2 matrix that holds the similarity score for the cartesian product of the token in h_tokens
+                and r_tokens, respectively.
+
         """
 
         assert isinstance(candidate, str)
@@ -287,12 +296,20 @@ class BERTScorer:
         sim = torch.bmm(hyp_embedding, ref_embedding.transpose(1, 2))
         sim = sim.squeeze(0).cpu()
 
-        r_tokens = [
-            self._tokenizer.decode([i]) for i in sent_encode(self._tokenizer, reference)
-        ][1:-1]
-        h_tokens = [
-            self._tokenizer.decode([i]) for i in sent_encode(self._tokenizer, candidate)
-        ][1:-1]
+        if return_raw_data:
+            r_tokens = [
+                (i, self._tokenizer.decode([i])) for i in sent_encode(self._tokenizer, reference)
+            ][1:-1]
+            h_tokens = [
+                (i, self._tokenizer.decode([i])) for i in sent_encode(self._tokenizer, candidate)
+            ][1:-1]
+        else:
+            r_tokens = [
+                self._tokenizer.decode([i]) for i in sent_encode(self._tokenizer, reference)
+            ][1:-1]
+            h_tokens = [
+                self._tokenizer.decode([i]) for i in sent_encode(self._tokenizer, candidate)
+            ][1:-1]
         sim = sim[1:-1, 1:-1]
 
         if self.rescale_with_baseline:

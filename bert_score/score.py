@@ -219,6 +219,14 @@ def plot_example(
         - :param: `rescale_with_baseline` (bool): rescale bertscore with pre-computed baseline
         - :param: `use_fast_tokenizer` (bool): `use_fast` parameter passed to HF tokenizer
         - :param: `fname` (str): path to save the output plot
+        - :param: `return_raw_data` (bool): If true, this function won't plot anything, but instead will return the raw data
+                that's used for the plot. The data is:
+                - h_tokens (List[Tuple[int, str]]): A list of 2-tuples. Each item in the list will be a token from the 'candidate'
+                param (by order). Each token will be a 2-tuple: the token's embedding (int) and the token's str representation
+                - r_tokens (List[Tuple[int, str]]): A list of 2-tuples. Each item in the list will be a token from the 'reference'
+                param (by order). Each token will be a 2-tuple: the token's embedding (int) and the token's str representation
+                - sim torch.Tensor: A 2X2 matrix that holds the similarity score for the cartesian product of the token in h_tokens
+                and r_tokens, respectively.
     """
     assert isinstance(candidate, str)
     assert isinstance(reference, str)
@@ -257,9 +265,14 @@ def plot_example(
     sim = torch.bmm(hyp_embedding, ref_embedding.transpose(1, 2))
     sim = sim.squeeze(0).cpu()
 
-    # remove [CLS] and [SEP] tokens
-    r_tokens = [tokenizer.decode([i]) for i in sent_encode(tokenizer, reference)][1:-1]
-    h_tokens = [tokenizer.decode([i]) for i in sent_encode(tokenizer, candidate)][1:-1]
+    if return_raw_data:
+        # remove [CLS] and [SEP] tokens
+        r_tokens = [(i, tokenizer.decode([i])) for i in sent_encode(tokenizer, reference)][1:-1]
+        h_tokens = [(i, tokenizer.decode([i])) for i in sent_encode(tokenizer, candidate)][1:-1]
+    else:
+        # remove [CLS] and [SEP] tokens
+        r_tokens = [tokenizer.decode([i]) for i in sent_encode(tokenizer, reference)][1:-1]
+        h_tokens = [tokenizer.decode([i]) for i in sent_encode(tokenizer, candidate)][1:-1]
     sim = sim[1:-1, 1:-1]
 
     if rescale_with_baseline:
