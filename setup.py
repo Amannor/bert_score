@@ -3,16 +3,16 @@ from io import open
 from setuptools import find_packages, setup
 
 setup(
-    name="bert_score",
-    version="0.3.13",
-    author="Tianyi Zhang*, Varsha Kishore*, Felix Wu*, Kilian Q. Weinberger, and Yoav Artzi",
-    author_email="tzhang@asapp.com",
-    description="PyTorch implementation of BERT score",
+    name="bert_score_flex_plot_example",
+    version="0.3.14",
+    author="Fork author: Alon Mannor. Origianl authors: Tianyi Zhang*, Varsha Kishore*, Felix Wu*, Kilian Q. Weinberger, and Yoav Artzi",
+    author_email="alon.mannor@gmail.com",
+    description="An unofficial fork of PyTorch implementation of BERT score",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     keywords="BERT NLP deep learning google metric",
     license="MIT",
-    url="https://github.com/Tiiiger/bert_score",
+    url="https://github.com/Amannor/bert_score/tree/flex_plot_example",
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=[
         "torch>=1.0.0",
