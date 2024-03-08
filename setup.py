@@ -6,7 +6,7 @@ setup(
     name="bert_score_flex_plot_example",
     version="0.3.14",
     author="Fork author: Alon Mannor. Origianl authors: Tianyi Zhang*, Varsha Kishore*, Felix Wu*, Kilian Q. Weinberger, and Yoav Artzi",
-    author_email="alon.mannor@gmail.com",
+    author_email="alon.mannor@gmail.com (fork author),  tzhang@asapp.com (original author)",
     description="An unofficial fork of PyTorch implementation of BERT score",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
